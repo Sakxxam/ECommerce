@@ -1,0 +1,129 @@
+﻿@model BookShoppingProject.Model.Company
+@{
+    var title = (Model.Id == 0 ? "New Company" : "Edit Company");
+}
+<div class="row  border">
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="col-9 p-3">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-9 border-rounded p-3">
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="Name"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="StreetAddress"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="StreetAddress" class="form-control" />
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="City"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="State"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="State" class="form-control" />
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="PostalCode"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="PostalCode" class="form-control" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="PhoneNumber"></label></b>
+                </div>
+                <div class="col-12">
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="IsAuthorizedCompany"></label></b>
+                </div>
+                <div class="col-12">
+                    <input type="checkbox" asp-for="IsAuthorizedCompany" />
+                </div>
+            </div>
+            <div class="form-group row p-2 m-2">
+                <div class="col-4">
+                    <b><label asp-for="ImageURL"></label></b>
+                </div>
+                <div class="col-12">
+                    <input type="file" id="uploadBox" name="files" multiple class="form-control" />
+                    <span asp-validation-for="ImageURL" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group p-2 m-2">
+                @if (Model.Id != 0)
+                {
+                    <partial name="_editAndBackToListButton" />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" onclick="return ValidateData()" class="bnt btn-primary form-control"><i class="fab fa-angrycreative"></i>&nbsp;Create</button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success form-control"><i class="fas fa-backward"></i>&nbsp; Back</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </form>
+    <div class="col-4 offset-1">
+        @if (Model.Id != 0)
+        {
+            <img src="@Model.ImageURL" height="450" width="560" />
+        }
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        function ValidateData() {
+            if (document.getElementById('uploadBox').value == "") {
+                swal("Error", "Please Select Image!!", "error");
+                return false;
+            }
+        }
+    </script>
+}
